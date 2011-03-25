@@ -26,4 +26,3 @@ Non-Commercial Use:
 Commercial Use:
     Please contact sunkid@iminurnetz.com
 
-Bogus change to test pull requests and the issues queue.

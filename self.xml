@@ -5,7 +5,7 @@
 	<groupId>com.iminurnetz</groupId>
 	<artifactId>bukkit.basebukkitplugin</artifactId>
 	<name>BaseBukkitPlugin</name>
-	<version>1.3</version>
+	<version>1.4</version>
 	<packaging>jar</packaging>
 	<description>Basic classes for use with plugins for bukkit servers</description>
 	<properties>

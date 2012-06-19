@@ -243,22 +243,6 @@ public abstract class BukkitPlugin extends JavaPlugin {
             } else if (latestVersion.isLaterVersion(installedVersion) && latestVersion.isBukkitCompatible(currentBukkitVersion)) {
                 log("Latest version " + latestVersion + " is newer than the installed version!");
 
-                // not sure this is necessary, as SimplePluginManager seems to
-                // move files automatically
-                // at least it'll create the folder
-                if (isPlugin) {
-                    jarFile = new File(getServer().getUpdateFolderFile(), jarFile.getName());
-                    if (!jarFile.getParentFile().exists()) {
-                        jarFile.getParentFile().mkdir();
-                    } else {
-                        Version updateVersion = getPluginVersionFromJar(jarFile);
-                        if (!updateVersion.isLaterVersion(new Version(getVersion()))) {
-                            log("The current version " + updateVersion + " is the latest!");
-                            return;
-                        }
-                    }
-                }
-
                 URL jarUrl = new URL(getRepository(name) + jarFile.getName());
                 DownloadUtils.download(getLogger(), jarUrl, jarFile);
                 log("The latest version was downloaded to " + jarFile.getAbsolutePath());

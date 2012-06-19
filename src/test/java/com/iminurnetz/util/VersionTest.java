@@ -24,4 +24,10 @@ public class VersionTest extends TestCase {
         v = new Version("1.2.3-1.1-R5");
         assertEquals("1.2.3", v.toString());
     }
+    
+    public void testEmptyVersion() {
+        Version v = new Version();
+        assertTrue(v.isEarlierVersion(new Version("1")));
+        assertFalse(v.isLaterVersion(new Version("1")));
+    }
 }

@@ -122,18 +122,6 @@ public abstract class BukkitPlugin extends JavaPlugin {
         return getDescription().getVersion();
     }
 
-    public int getServerVersion() {
-        String[] sv = getServer().getVersion().split("-");
-        int version = -1;
-        try {
-            version = Integer.valueOf(sv[3]);
-        } catch (Exception e) {
-            log("Unfamiliar version string " + getServer().getVersion());
-        }
-
-        return version;
-    }
-
     public String getFullMessagePrefix() {
         return getFullMessagePrefix(ChatColor.WHITE);
     }
@@ -162,16 +150,7 @@ public abstract class BukkitPlugin extends JavaPlugin {
 
     @Override
     public final void onEnable() {
-        int serverVersion = getServerVersion();
         try {
-            if (serverVersion > 0 && (serverVersion < getMinimumServerVersion() || serverVersion > getMaximumServerVersion())) {
-                throw new UnsupportedServerVersionException("This plugin only supports server versions " + getMinimumServerVersion() + " to " + getMaximumServerVersion());
-            }
-
-            if (serverVersion > 0) {
-                log("Server version compatibility check succeeded");
-            }
-
             PluginManager pm = getServer().getPluginManager();
             if (pm.getPlugin(BASE_BUKKIT_PLUGIN) == null) {
                 updateAndLoadBaseBukkitPlugin();
@@ -350,6 +329,8 @@ public abstract class BukkitPlugin extends JavaPlugin {
             } catch (Exception e) {
                 log(Level.SEVERE, "Cannot check plugin version for " + pluginJarFile.getName(), e);
             }
+        } else {
+            log(Level.WARNING, pluginJarFile + " does not exist!");
         }
 
         return pluginVersion;
@@ -447,6 +428,11 @@ public abstract class BukkitPlugin extends JavaPlugin {
 
         protected boolean isBukkitCompatible(BukkitVersion currentBukkitVersion) {
             return !bukkitVersion.isLaterVersion(currentBukkitVersion);
+        }
+        
+        @Override
+        public String toString() {
+            return version.toString();
         }
     }
 }

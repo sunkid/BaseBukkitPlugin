@@ -83,9 +83,12 @@ public abstract class BukkitPlugin extends JavaPlugin {
         log(this.getFullMessagePrefix() + " initialized");
     }
 
-    public Logger getLogger() {
+    public Logger getMyLogger() {
         try {
             logger = super.getLogger();
+            if (logger == null) {
+                throw new NullPointerException("You were supposed to give me something to work with!!!");
+            }
         } catch (Exception e) {
             logger = Logger.getLogger("Minecraft");
         }
@@ -95,17 +98,17 @@ public abstract class BukkitPlugin extends JavaPlugin {
 
     // simple shortcut
     public void log(String msg) {
-        getLogger().log(Level.INFO, msg);
+        getMyLogger().log(Level.INFO, msg);
     }
 
     // simple shortcut
     public void log(Level level, String msg) {
-        getLogger().log(level, msg);
+        getMyLogger().log(level, msg);
     }
 
     // simple shortcut
     public void log(Level level, String msg, Exception e) {
-        getLogger().log(level, msg, e);
+        getMyLogger().log(level, msg, e);
     }
 
     // simple shortcut
@@ -113,13 +116,12 @@ public abstract class BukkitPlugin extends JavaPlugin {
         log(Level.SEVERE, msg, e);
     }
 
-    @Override
-    public PluginDescriptionFile getDescription() {
+    public PluginDescriptionFile getMyDescription() {
         return description;
     }
 
     public String getVersion() {
-        return getDescription().getVersion();
+        return getMyDescription().getVersion();
     }
 
     public String getFullMessagePrefix() {
@@ -140,7 +142,7 @@ public abstract class BukkitPlugin extends JavaPlugin {
 
     // wrapped here so plugins can override and test
     protected String getPluginName() {
-        return getName();
+        return getMyDescription().getName();
     }
 
     @Override
@@ -244,7 +246,7 @@ public abstract class BukkitPlugin extends JavaPlugin {
                 log("Latest version " + latestVersion + " is newer than the installed version!");
 
                 URL jarUrl = new URL(getRepository(name) + jarFile.getName());
-                DownloadUtils.download(getLogger(), jarUrl, jarFile);
+                DownloadUtils.download(getMyLogger(), jarUrl, jarFile);
                 log("The latest version was downloaded to " + jarFile.getAbsolutePath());
                 if (isPlugin) {
                     log("The update will automatically be installed upon the next server restart!");
@@ -365,7 +367,7 @@ public abstract class BukkitPlugin extends JavaPlugin {
 
         if (!dataFolder.exists()) {
             if (!dataFolder.mkdirs()) {
-                getLogger().log(Level.SEVERE, "Cannot create data directory at " + dataFolder.getAbsolutePath());
+                getMyLogger().log(Level.SEVERE, "Cannot create data directory at " + dataFolder.getAbsolutePath());
                 return;
             }
         }
@@ -383,7 +385,7 @@ public abstract class BukkitPlugin extends JavaPlugin {
             os.close();
 
         } catch (Exception e) {
-            getLogger().log(Level.SEVERE, "Cannot generate file " + out + " from jar resource " + in, e);
+            getMyLogger().log(Level.SEVERE, "Cannot generate file " + out + " from jar resource " + in, e);
         }
     }
 

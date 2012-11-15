@@ -1,5 +1,9 @@
 Listed below are released versions and cumulative changes between them
 
+3.0
+
+* compatibility with 1.4.4-R0.1 (backwards compatible)
+
 2.9
 
 * compatibility with 1.2.3-R0.2 (backwards compatible)

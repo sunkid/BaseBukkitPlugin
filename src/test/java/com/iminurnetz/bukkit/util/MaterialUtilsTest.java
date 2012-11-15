@@ -54,7 +54,7 @@ public class MaterialUtilsTest extends TestCase {
 	}
 	
 	public void testGetMatchingMaterials() {
-		List<Material> materials = Arrays.asList(Material.AIR, Material.APPLE, Material.ARROW);
+		List<Material> materials = Arrays.asList(Material.AIR, Material.APPLE, Material.ARROW, Material.ANVIL);
 		Collections.sort(materials);
 		assertEquals(materials, getSorted(MaterialUtils.getMatchingMaterials("a")));
 		materials = Arrays.asList(Material.GOLD_SPADE, Material.GOLD_ORE, Material.GOLD_PICKAXE, Material.GOLD_AXE, Material.GOLD_HOE, Material.GOLD_CHESTPLATE, Material.GOLDEN_APPLE);

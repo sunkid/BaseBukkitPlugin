@@ -42,7 +42,7 @@ public class PermissionHandlerService {
 	
 	public static PermissionHandler getHandler(BukkitPlugin plugin) {
 		
-		log = plugin.getLogger();
+		log = plugin.getMyLogger();
 		
 		PermissionHandler handler = null;
 		PluginManager pm = plugin.getServer().getPluginManager();

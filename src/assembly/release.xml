@@ -31,4 +31,12 @@
 			</includes>
 		</fileSet>
 	</fileSets>
+	<dependencySets>
+		<dependencySet>
+			<includes>
+				<include>org.mcstats:metrics</include>
+			</includes>
+			<unpack>true</unpack>
+		</dependencySet>
+	</dependencySets>
 </assembly>

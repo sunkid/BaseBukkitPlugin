@@ -48,6 +48,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcstats.Metrics;
 
 import com.iminurnetz.bukkit.plugin.util.MessageUtils;
 import com.iminurnetz.bukkit.util.BukkitVersion;
@@ -174,8 +175,18 @@ public abstract class BukkitPlugin extends JavaPlugin {
                         log(Level.SEVERE, "Cannot check for or install latest version", e);
                     }
                 }
+                
+                // PluginMetrics
+                if (!config.getBoolean("settings.disable-metrics", false)) {
+                    try {
+                        Metrics metrics = new Metrics(this);
+                        metrics.start();
+                    } catch (IOException e) {
+                        log(Level.WARNING, "Cannot submit plugin metrics!", e);
+                    }
+                }
             }
-
+            
         } catch (Exception e) {
             log("Error enabling! ABORTED", e);
             this.setEnabled(false);
